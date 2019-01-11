@@ -22,12 +22,14 @@ class App extends Component {
     // We then take that data and resolve it our state.
     fetch(URL)
       .then(res => {
+        // update the url and page items of state based on the url which is grabbed, and the last character which corresponds to the page number
         this.setState({ 
           url: res.url,
           page: res.url[res.url.length -1]
         })
         return res.json();
       })
+      // set the state.starwarsChars to the results property of the data object
       .then(data => {
         this.setState({ 
           starwarsChars: data.results,
@@ -39,9 +41,12 @@ class App extends Component {
   };
 
   render() {
+    // declare the previous and next URLs for pagination
     const prevURL = this.state.url.slice(0, this.state.url.length - 1) + (this.state.page - 1);
     const nextURL = this.state.url.slice(0, this.state.url.length - 1) + (parseFloat(this.state.page) + 1);
+    // grab the current page number
     const pageNumber= this.state.page;
+    // if the page number is 1, render app with no back button
     if (pageNumber < 2) {
       return (
         <div className="App">
@@ -56,6 +61,7 @@ class App extends Component {
           <CharacterList characters={this.state.starwarsChars} page={this.state.page}/>
         </div>
       );
+      // if on pages 2-8 render app with back and forward buttons
     } else if (pageNumber < 9) {
       return (
         <div className="App">
@@ -76,6 +82,7 @@ class App extends Component {
           <CharacterList characters={this.state.starwarsChars} page={this.state.page}/>
         </div>
       );
+      // if on page 9 render app with no forward button
     } else {
       return (
         <div className="App">
