@@ -6,12 +6,13 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      starwarsChars: []
+      starwarsChars: [],
+      page: 0
     };
   }
 
   componentDidMount() {
-    this.getCharacters('https://swapi.co/api/people');
+    this.getCharacters('https://swapi.co/api/people?page=1');
   }
 
   getCharacters = URL => {
@@ -20,11 +21,13 @@ class App extends Component {
     // We then take that data and resolve it our state.
     fetch(URL)
       .then(res => {
+        this.setState({ page: res.url[res.url.length-1] })
         return res.json();
       })
       .then(data => {
-        console.log(data);
-        this.setState({ starwarsChars: data.results });
+        this.setState({ 
+          starwarsChars: data.results,
+        });
       })
       .catch(err => {
         throw new Error(err);
@@ -36,7 +39,8 @@ class App extends Component {
       <div className="App">
         <div className="Header">
           <button
-            onClick={() => this.getCharacters('https://swapi.co/api/people')} 
+            onClick={() => 
+              this.getCharacters('https://swapi.co/api/people?page=1')}
             className="back">
             ←
           </button>
