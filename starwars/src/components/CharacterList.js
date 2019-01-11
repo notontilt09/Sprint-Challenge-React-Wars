@@ -1,5 +1,6 @@
-import React from 'react'
-import Character from './Character'
+import React from 'react';
+import Character from './Character';
+import './StarWars.css';
 
 const CharacterList = props => {
     return (
@@ -7,6 +8,6 @@ const CharacterList = props => {
         <Character key={Math.random()} character={character} />
         )
     );
-}
+};
 
 export default CharacterList;
