@@ -1,0 +1,16 @@
+.character-name {
+    color: rgb(61, 192, 148);
+    font-weight: bold;
+}
+
+.details {
+    color: black;
+    font-weight: bold;
+    list-style: none;
+}
+
+.character-item {
+    width: 30%;
+    margin: 10px auto;
+    border: 1px solid black;
+}

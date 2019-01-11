@@ -4,5 +4,28 @@
 .Header {
   color: #443e3e;
   text-shadow: 1px 1px 5px #fff;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto 50px auto;
 }
-/* write your parent styles in here for your App.js */
+
+button {
+  border-radius: 5px;
+  color: white;
+  background: black;
+  height: 50px;
+  width: 90px;
+  font-size: 48px;
+  padding-bottom: 65px;
+
+}
+
+.back {
+  margin-right: 30px;
+}
+
+.next {
+  margin-left: 30px;
+}
+
