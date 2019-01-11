@@ -4,10 +4,12 @@ import './StarWars.css';
 
 const CharacterList = props => {
     return (
-        props.characters.map(character => 
-        <Character key={Math.random()} character={character} />
-        )
-    );
+        <div>
+            <h1>Page: {props.page}</h1>
+            {props.characters.map(character => 
+            <Character key={Math.random()} character={character} />)}
+        </div>   
+    )
 };
 
 export default CharacterList;

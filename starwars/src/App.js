@@ -7,12 +7,13 @@ class App extends Component {
     super();
     this.state = {
       starwarsChars: [],
-      page: 0
+      url: '',
+      page: 0,
     };
   }
 
   componentDidMount() {
-    this.getCharacters('https://swapi.co/api/people?page=1');
+    this.getCharacters('https://swapi.co/api/people/?page=1');
   }
 
   getCharacters = URL => {
@@ -21,7 +22,10 @@ class App extends Component {
     // We then take that data and resolve it our state.
     fetch(URL)
       .then(res => {
-        this.setState({ page: res.url[res.url.length-1] })
+        this.setState({ 
+          url: res.url,
+          page: res.url[res.url.length -1]
+        })
         return res.json();
       })
       .then(data => {
@@ -35,26 +39,61 @@ class App extends Component {
   };
 
   render() {
-    return (
-      <div className="App">
-        <div className="Header">
-          <button
-            onClick={() => 
-              this.getCharacters('https://swapi.co/api/people?page=1')}
-            className="back">
-            ←
-          </button>
-          <h1>React Wars</h1>
-          <button 
-            onClick={() => this.getCharacters('https://swapi.co/api/people/?page=2')} 
-            className="next">
-            →
-          </button>
+    const prevURL = this.state.url.slice(0, this.state.url.length - 1) + (this.state.page - 1);
+    const nextURL = this.state.url.slice(0, this.state.url.length - 1) + (parseFloat(this.state.page) + 1);
+    const pageNumber= this.state.page;
+    if (pageNumber < 2) {
+      return (
+        <div className="App">
+          <div className="Header">
+            <h1>React Wars</h1>
+            <button 
+              onClick={() => this.getCharacters(nextURL)} 
+              className="next">
+              →
+            </button>
+          </div>
+          <CharacterList characters={this.state.starwarsChars} page={this.state.page}/>
         </div>
-        <CharacterList characters={this.state.starwarsChars}/>
-      </div>
-    );
+      );
+    } else if (pageNumber < 9) {
+      return (
+        <div className="App">
+          <div className="Header">
+            <button
+              onClick={() => 
+                this.getCharacters(prevURL)}
+              className="back">
+              ←
+            </button>
+            <h1>React Wars</h1>
+            <button 
+              onClick={() => this.getCharacters(nextURL)} 
+              className="next">
+              →
+            </button>
+          </div>
+          <CharacterList characters={this.state.starwarsChars} page={this.state.page}/>
+        </div>
+      );
+    } else {
+      return (
+        <div className="App">
+          <div className="Header">
+            <button
+              onClick={() => 
+                this.getCharacters(prevURL)}
+              className="back">
+              ←
+            </button>
+            <h1>React Wars</h1>
+          </div>
+          <CharacterList characters={this.state.starwarsChars} page={this.state.page}/>
+        </div>
+      );
+    }
   }
 }
 
 export default App;
+
