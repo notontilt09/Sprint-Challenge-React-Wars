@@ -2,7 +2,9 @@ import React from 'react'
 
 const Character = props => {
     return (
-        <div>test</div>
+        <div className="character-item">
+            <h1>{props.character.name}</h1>
+        </div>
     );
 }
 
