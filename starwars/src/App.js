@@ -23,6 +23,7 @@ class App extends Component {
         return res.json();
       })
       .then(data => {
+        console.log(data);
         this.setState({ starwarsChars: data.results });
       })
       .catch(err => {
@@ -33,7 +34,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1 className="Header">React Wars</h1>
+        <div className="Header">
+          <button
+            onClick={() => this.getCharacters('https://swapi.co/api/people')} 
+            className="back">
+            ←
+          </button>
+          <h1>React Wars</h1>
+          <button 
+            onClick={() => this.getCharacters('https://swapi.co/api/people/?page=2')} 
+            className="next">
+            →
+          </button>
+        </div>
         <CharacterList characters={this.state.starwarsChars}/>
       </div>
     );
